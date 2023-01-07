@@ -1,4 +1,4 @@
-FROM openswoole/swoole:latest
+FROM php:8.1-cli
 
 RUN apt-get update \
     && apt-get install git zip libzip-dev libssl-dev -y \
