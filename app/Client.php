@@ -136,7 +136,7 @@ class Client
             Coroutine::sleep(static::RETRY_INTERVAL);
         }
 
-        $curl = new Coroutine\Http\Client($this->config['address'], $this->config['port'], false);
+        $curl = new Coroutine\Http\Client($this->config['address'], $this->config['port'], true);
         $curl->setHeaders(array_merge(['content-type' => 'application/json'], $headers));
         $curl->post("/api/$method", json_encode($parameters, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_IGNORE));
         $curl->recv(static::TIMEOUT);
@@ -188,8 +188,7 @@ class Client
                 ];
                 break;
         }
-        var_dump($curl);
-        var_dump($curl->statusCode);
+
         if (!in_array($curl->statusCode, [200,206,302], true) || $curl->errCode || $errorMessage) {
             if (!$errorMessage && $retry < static::RETRY) {
                 return $this->get($method, $parameters, $headers, $responseType, ++$retry);
