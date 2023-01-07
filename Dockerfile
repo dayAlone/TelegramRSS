@@ -17,6 +17,9 @@ RUN apt-get update \
 
 ADD docker/php/conf.d/. "$PHP_INI_DIR/conf.d/"
 
+COPY . /app
+WORKDIR /app
+
 EXPOSE 9504
 
 ENTRYPOINT php server.php --docker
