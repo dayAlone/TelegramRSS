@@ -188,7 +188,8 @@ class Client
                 ];
                 break;
         }
-
+        var_dump($curl);
+        var_dump($curl->statusCode);
         if (!in_array($curl->statusCode, [200,206,302], true) || $curl->errCode || $errorMessage) {
             if (!$errorMessage && $retry < static::RETRY) {
                 return $this->get($method, $parameters, $headers, $responseType, ++$retry);
